@@ -1,13 +1,15 @@
-# FFmpeg.wasm Music Metadata Reader
+# Foundry VTT FFmpeg.wasm Music Metadata Reader
 A Foundry VTT module for extracting metadata and tags from audio files using FFmpeg WebAssembly.
 
 ## Usage
 
 The `readTags` and `readMetadata` functions accept both strings or arrays of strings for batches.
 ```js
-const tags = await window.FFmpegMusicMetadata.readTags("assets/music/21. The Color-Carrying Wind.flac");
+const file = "assets/music/21. The Color-Carrying Wind.flac";
+const tags = await window.FFmpegMusicMetadata.readTags(file);
 console.log(tags);
 ```
+Output:
 ```json
 {
   "assets/music/21. The Color-Carrying Wind.flac": {
