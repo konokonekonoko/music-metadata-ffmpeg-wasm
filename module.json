@@ -1,0 +1,26 @@
+{
+  "id": "music-metadata-ffmpeg-wasm",
+  "title": "FFmpeg.wasm Music Metadata Reader",
+  "description": "Read Music metadata like tags or track length using FFmpeg.wasm.",
+  "authors": [
+    {
+      "name": "(You)"
+    }
+  ],
+  "url": "https://github.com/konokonekonoko/music-metadata-ffmpeg-wasm",
+  "manifest": "https://raw.githubusercontent.com/konokonekonoko/music-metadata-ffmpeg-wasm/main/module.json",
+  "download": "https://github.com/konokonekonoko/music-metadata-ffmpeg-wasm/archive/refs/heads/main.zip",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "0",
+    "verified": "12"
+  },
+  "scripts": [
+    "./libs/ffmpeg.js"
+  ],
+  "esmodules": [
+    "./scripts/init.js"
+  ],
+  "relationships": {},
+  "license": "MIT"
+}
