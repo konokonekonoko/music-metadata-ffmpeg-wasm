@@ -1,5 +1,15 @@
 class FFmpegMusicMetadata {
-  static id = "music-metadata-ffmpeg-wasm";
+  id = "music-metadata-ffmpeg-wasm";
+
+  #concurrencyLimit = null;
+
+  #getConcurrencyLimit() {
+    if (!this.#concurrencyLimit) {
+      this.#concurrencyLimit =
+        game.settings.get(this.id, "concurrencyLimit") || 1;
+    }
+    return this.#concurrencyLimit;
+  }
 
   #ffmpeg = null;
 
@@ -83,6 +93,16 @@ class FFmpegMusicMetadata {
     return obj;
   }
 
+  async #processWithLimit(items, asyncFn) {
+    const limit = this.#getConcurrencyLimit();
+    const results = [];
+    for (let i = 0; i < items.length; i += limit) {
+      const batch = items.slice(i, i + limit);
+      results.push(await Promise.all(batch.map(asyncFn)));
+    }
+    return results.flat();
+  }
+
   /**
    * Reads and extracts metadata from one or more audio files using FFprobe.
    * Fetches the file, writes it to FFmpeg's virtual filesystem, runs ffprobe, and parses the JSON output.
@@ -99,10 +119,10 @@ class FFmpegMusicMetadata {
     const metadata = {};
     const ffmpeg = await this.#ensureFFmpeg();
 
-    for (const soundPath of soundPaths) {
+    await this.#processWithLimit(soundPaths, async (soundPath) => {
       const song = encodeURIComponent(soundPath);
       const probe = `${song}.json`;
-      
+
       try {
         const res = await fetch(soundPath);
         const data = new Uint8Array(await res.arrayBuffer());
@@ -128,8 +148,7 @@ class FFmpegMusicMetadata {
         await ffmpeg.deleteFile(song).catch(() => {});
         await ffmpeg.deleteFile(probe).catch(() => {});
       }
-    }
-
+    });
     return metadata;
   }
 
