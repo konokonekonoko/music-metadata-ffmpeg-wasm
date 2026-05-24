@@ -2,6 +2,8 @@
 A Foundry VTT module for extracting metadata and tags from audio files using FFmpeg WebAssembly. Thanks to FFMpeg's wideranging compatibility, this module should be able to extract relevant metadata from all commonly used audio filetypes.<br>
 Supported filetypes include, but are not limited to: mp3, wav, flac, ogg, opus, m4a and webm.
 
+This module is intended to be used as a library. It does not do anything useful with the extracted metadata on its own.
+
 ## Usage
 
 The `readTags` and `readMetadata` functions accept both strings or arrays of strings for batches.
@@ -31,5 +33,23 @@ Output:
 }
 ```
 
-## Dependencies
+## Adding This Module as a Dependency
+Add the following key to your `module.json` or `system.json` file:
+```json
+  "relationships": {
+    "requires": [
+      {
+        "id": "music-metadata-ffmpeg-wasm",
+        "type": "module",
+        "manifest": "https://raw.githubusercontent.com/konokonekonoko/music-metadata-ffmpeg-wasm/main/module.json",
+        "compatibility": {
+          "minimum": "tested compatible versions here",
+          "verified": "tested compatible versions here"
+        }
+      }
+    ]
+  }
+```
+
+## FFmpeg.wasm
 This module requires the [npm package](https://www.npmjs.com/package/@ffmpeg.wasm/main) of [FFmpeg.wasm](https://github.com/ffmpegwasm/ffmpeg.wasm) to function. The dependency is included. FFmpeg.wasm is licensed under the MIT License.
