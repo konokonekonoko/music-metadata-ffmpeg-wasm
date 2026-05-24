@@ -1,5 +1,6 @@
 # Foundry VTT FFmpeg.wasm Music Metadata Reader
-A Foundry VTT module for extracting metadata and tags from audio files using FFmpeg WebAssembly.
+A Foundry VTT module for extracting metadata and tags from audio files using FFmpeg WebAssembly. Thanks to FFMpeg's wideranging compatibility, this module should be able to extract relevant metadata from all commonly used audio filetypes.<br>
+Supported filetypes include, but are not limited to: mp3, wav, flac, ogg, opus, m4a and webm.
 
 ## Usage
 
